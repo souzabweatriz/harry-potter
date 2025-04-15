@@ -1,9 +1,7 @@
 const pool = require("../config/database");
 
 const getWizards = async (name) => {
-    //Sem nome
     if (!name) {
-        // Se não houver nome, retorna todos os bruxos
         const result = await pool.query(
             `SELECT wizards.*, houses.name AS house_name 
             FROM wizards 
@@ -11,7 +9,6 @@ const getWizards = async (name) => {
         );
         return result.rows;
     } else {
-        // Se tiver, faça o filtro.
         const result = await pool.query(
             `SELECT wizards.*, houses.name AS house_name 
                 FROM wizards 
@@ -32,13 +29,14 @@ const getWizardById = async (id) => {
     return result.rows[0];
 };
 
-const createWizard = async (name, house_id) => {
+const createWizard = async (name, house_id, photo) => {
     const result = await pool.query(
-        "INSERT INTO wizards (name, house_id) VALUES ($1, $2) RETURNING *",
-        [name, house_id]
+        "INSERT INTO wizards (name, house_id, photo) VALUES ($1, $2, $3) RETURNING *",
+        [name, house_id, photo]
     );
     return result.rows[0];
 };
+
 
 const updateWizard = async (id, name, house_id) => {
     const result = await pool.query(
@@ -48,7 +46,6 @@ const updateWizard = async (id, name, house_id) => {
     return result.rows[0];
 };
 
-
 const deleteWizard = async (id) => {
     const result = await pool.query("DELETE FROM wizards WHERE id = $1 RETURNING *", [id]);
 
@@ -57,5 +54,6 @@ const deleteWizard = async (id) => {
     }
     return { message: "Bruxo deletado com sucesso"}
 }
+
 
 module.exports = { getWizards, getWizardById, createWizard, updateWizard, deleteWizard};

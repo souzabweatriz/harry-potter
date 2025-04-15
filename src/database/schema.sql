@@ -57,4 +57,3 @@ INSERT INTO wizards (name, house_id) VALUES
      ('Anthony Goldstein', 3),
      ('Justin Finch-Fletchley', 4);
 
-http://localhost:3000/api/wizards?name=Weasley

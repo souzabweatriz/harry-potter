@@ -38,4 +38,3 @@ const deleteHouse = async (id) => {
 
 
 module.exports = { getHouses, getHouseById, createHouse, updateHouse, deleteHouse};
-""
